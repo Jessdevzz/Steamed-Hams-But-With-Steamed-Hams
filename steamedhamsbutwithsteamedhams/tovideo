@@ -1,0 +1,16 @@
+import cv2
+width, height = 1280, 720
+# Create a VideoWriter object
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+out = cv2.VideoWriter('output.mp4', fourcc, 5, (width, height), isColor=True)
+
+# Loop through the frames
+for i in range(845):
+    # Read the frame
+    frame = cv2.imread(f'HamFrames\HamTest{i}.jpg')
+
+    # Write the frame to the VideoWriter object
+    out.write(frame)
+
+# Release the VideoWriter object
+out.release()

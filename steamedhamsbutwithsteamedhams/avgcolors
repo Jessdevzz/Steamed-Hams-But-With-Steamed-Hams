@@ -1,0 +1,330 @@
+# avg colors will be in BGR format
+from time import sleep
+import time
+from threading import Thread
+import matplotlib.pyplot as plt
+import numpy as np
+import threading
+from PIL import Image
+import multiprocessing as mp
+global i
+global j
+global l
+global k
+global v
+i = 0
+j = 1000
+l = 2000
+k = 3000
+v = 4000
+colors = {}
+
+
+def t1():
+    global i
+    global j
+    global l
+    global k
+    global v
+    while True:
+        # Load image
+
+        img = plt.imread(f'Frames/frame{i}.jpg')
+
+        # get average RGB value of all pixels
+        average_color = np.mean(img, axis=(0, 1))
+
+        colors[f'Frames/frame{i}.jpg'] = average_color
+        i += 1
+        if i >= 845//4:
+            break
+
+
+t1()
+# make image frames
+print('Completed colors')
+sleep(10)
+print("Creating frame")
+
+
+def findbestframe(color):
+    closest = None
+    closestdifference = 999999999999
+    for k in colors:
+        v = colors[k]
+        r = color[0]
+        g = color[1]
+        b = color[2]
+        rr = v[0]
+        gg = v[1]
+        bb = v[2]
+        rrggbb = rr+gg+bb
+        rgb = r+g+b
+        difference = abs(rgb - rrggbb)
+        if difference < closestdifference:
+            closestdifference = difference
+            closest = k
+    return closest
+
+
+def mltip1000():
+    number = 0
+    while number <= 211:
+        global start
+        start = time.time()
+        # Open the first image
+        im1 = Image.open(f'Frames/frame{number}.jpg')
+
+        # Get the size of the first image
+        width, height = im1.size
+
+        # Get the size of the second image
+
+        # Create a variable to keep track of the current section
+        current_section = 0
+
+        # Iterate over the width and height of the first image
+        for x in range(0, width, width//50):
+            for y in range(0, height, height//50):
+                # Calculate the coordinates of the current section
+                left = x
+                upper = y
+                right = x + width//50
+                lower = y + height//50
+
+                # Crop the first image to the size of the current section
+                im1_cropped = im1.crop((left, upper, right, lower))
+                average_color = np.mean(im1_cropped, axis=(0, 1))
+                # Open the second image
+                ito = findbestframe(average_color)
+                im2 = Image.open(ito)
+                width2, height2 = im2.size
+                # Get the pixels of the current section
+                pixels = im1_cropped.load()
+
+                # Create variables to store the total red, green, and blue values
+                r_total, g_total, b_total = 0, 0, 0
+
+                # Iterate over the pixels and add the red, green, and blue values to the total
+                for i in range(im1_cropped.size[0]):
+                    for j in range(im1_cropped.size[1]):
+                        r, g, b = pixels[i, j]
+                        r_total += r
+                        g_total += g
+                        b_total += b
+
+                # Crop the second image to the size of the current section
+                im2_cropped = im2.resize((width2//50, height2//50))
+
+                # paste the cropped image onto the current section of the first image
+                im1.paste(im2_cropped, (left, upper, right, lower))
+
+                # Update the current section
+                current_section += 1
+
+        # Save the modified image
+        end = time.time()
+        im1.save(f'HamFrames/HamTest{number}.jpg')
+        print('Frame: ', number)
+        print('Completed Frame in: ', end - start)
+        number = number + 1
+
+
+def mltip2000():
+    number = 212
+    while number <= 423:
+        global start
+        start = time.time()
+        # Open the first image
+        im1 = Image.open(f'Frames/frame{number}.jpg')
+
+        # Get the size of the first image
+        width, height = im1.size
+
+        # Get the size of the second image
+
+        # Create a variable to keep track of the current section
+        current_section = 0
+
+        # Iterate over the width and height of the first image
+        for x in range(0, width, width//50):
+            for y in range(0, height, height//50):
+                # Calculate the coordinates of the current section
+                left = x
+                upper = y
+                right = x + width//50
+                lower = y + height//50
+
+                # Crop the first image to the size of the current section
+                im1_cropped = im1.crop((left, upper, right, lower))
+                average_color = np.mean(im1_cropped, axis=(0, 1))
+                # Open the second image
+                ito = findbestframe(average_color)
+                im2 = Image.open(ito)
+                width2, height2 = im2.size
+                # Get the pixels of the current section
+                pixels = im1_cropped.load()
+
+                # Create variables to store the total red, green, and blue values
+                r_total, g_total, b_total = 0, 0, 0
+
+                # Iterate over the pixels and add the red, green, and blue values to the total
+                for i in range(im1_cropped.size[0]):
+                    for j in range(im1_cropped.size[1]):
+                        r, g, b = pixels[i, j]
+                        r_total += r
+                        g_total += g
+                        b_total += b
+
+                # Crop the second image to the size of the current section
+                im2_cropped = im2.resize((width2//50, height2//50))
+
+                # paste the cropped image onto the current section of the first image
+                im1.paste(im2_cropped, (left, upper, right, lower))
+
+                # Update the current section
+                current_section += 1
+
+        # Save the modified image
+        end = time.time()
+        im1.save(f'HamFrames/HamTest{number}.jpg')
+        print('Frame: ', number)
+        print('Completed Frame in: ', end - start)
+        number = number + 1
+
+
+def mltip3000():
+    number = 424
+    while number <= 635:
+        global start
+        start = time.time()
+        # Open the first image
+        im1 = Image.open(f'Frames/frame{number}.jpg')
+
+        # Get the size of the first image
+        width, height = im1.size
+
+        # Get the size of the second image
+
+        # Create a variable to keep track of the current section
+        current_section = 0
+
+        # Iterate over the width and height of the first image
+        for x in range(0, width, width//50):
+            for y in range(0, height, height//50):
+                # Calculate the coordinates of the current section
+                left = x
+                upper = y
+                right = x + width//50
+                lower = y + height//50
+
+                # Crop the first image to the size of the current section
+                im1_cropped = im1.crop((left, upper, right, lower))
+                average_color = np.mean(im1_cropped, axis=(0, 1))
+                # Open the second image
+                ito = findbestframe(average_color)
+                im2 = Image.open(ito)
+                width2, height2 = im2.size
+                # Get the pixels of the current section
+                pixels = im1_cropped.load()
+
+                # Create variables to store the total red, green, and blue values
+                r_total, g_total, b_total = 0, 0, 0
+
+                # Iterate over the pixels and add the red, green, and blue values to the total
+                for i in range(im1_cropped.size[0]):
+                    for j in range(im1_cropped.size[1]):
+                        r, g, b = pixels[i, j]
+                        r_total += r
+                        g_total += g
+                        b_total += b
+
+                # Crop the second image to the size of the current section
+                im2_cropped = im2.resize((width2//50, height2//50))
+
+                # paste the cropped image onto the current section of the first image
+                im1.paste(im2_cropped, (left, upper, right, lower))
+
+                # Update the current section
+                current_section += 1
+
+        # Save the modified image
+        end = time.time()
+        im1.save(f'HamFrames/HamTest{number}.jpg')
+        print('Frame: ', number)
+        print('Completed Frame in: ', end - start)
+        number = number + 1
+
+
+def mltip4000():
+    number = 636
+    while number <= 845:
+        global start
+        start = time.time()
+        # Open the first image
+        im1 = Image.open(f'Frames/frame{number}.jpg')
+
+        # Get the size of the first image
+        width, height = im1.size
+
+        # Get the size of the second image
+
+        # Create a variable to keep track of the current section
+        current_section = 0
+
+        # Iterate over the width and height of the first image
+        for x in range(0, width, width//50):
+            for y in range(0, height, height//50):
+                # Calculate the coordinates of the current section
+                left = x
+                upper = y
+                right = x + width//50
+                lower = y + height//50
+
+                # Crop the first image to the size of the current section
+                im1_cropped = im1.crop((left, upper, right, lower))
+                average_color = np.mean(im1_cropped, axis=(0, 1))
+                # Open the second image
+                ito = findbestframe(average_color)
+                im2 = Image.open(ito)
+                width2, height2 = im2.size
+                # Get the pixels of the current section
+                pixels = im1_cropped.load()
+
+                # Create variables to store the total red, green, and blue values
+                r_total, g_total, b_total = 0, 0, 0
+
+                # Iterate over the pixels and add the red, green, and blue values to the total
+                for i in range(im1_cropped.size[0]):
+                    for j in range(im1_cropped.size[1]):
+                        r, g, b = pixels[i, j]
+                        r_total += r
+                        g_total += g
+                        b_total += b
+
+                # Crop the second image to the size of the current section
+                im2_cropped = im2.resize((width2//50, height2//50))
+
+                # paste the cropped image onto the current section of the first image
+                im1.paste(im2_cropped, (left, upper, right, lower))
+
+                # Update the current section
+                current_section += 1
+
+        # Save the modified image
+        end = time.time()
+        im1.save(f'HamFrames/HamTest{number}.jpg')
+        print('Frame: ', number)
+        print('Completed Frame in: ', end - start)
+        number = number + 1
+
+
+if __name__ == '__main__':
+    m1 = mp.Process(target=mltip1000)
+    m2 = mp.Process(target=mltip2000)
+    m3 = mp.Process(target=mltip3000)
+    m4 = mp.Process(target=mltip4000)
+    m1.start()
+    m2.start()
+    m3.start()
+    m4.start()
